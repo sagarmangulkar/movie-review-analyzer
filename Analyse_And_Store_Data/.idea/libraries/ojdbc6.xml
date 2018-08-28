@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="ojdbc6">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/smangul1_java_part2/lib/ojdbc6.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

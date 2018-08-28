@@ -1,0 +1,16 @@
+//testing database connectivity
+        try {
+            Class.forName("oracle.jdbc.driver.OracleDriver");
+            //Connection conn =  DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE","sagar","Sagar");
+            Connection conn =  DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE","scott","tiger");
+            Statement st = conn.createStatement();
+            ResultSet resultSet = st.executeQuery("select 2+2 from dual;");
+            while (resultSet.next()){
+                System.out.println(resultSet.getInt(1));
+            }
+            resultSet.close();
+            st.close();
+            conn.close();
+        } catch (Exception e) {
+            System.out.println("error : " + e);
+        }

@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="module_user_query" default="compile.module.user_query">
+  <dirname property="module.user_query.basedir" file="${ant.file.module_user_query}"/>
+  
+  <property name="module.jdk.home.user_query" value="${project.jdk.home}"/>
+  <property name="module.jdk.bin.user_query" value="${project.jdk.bin}"/>
+  <property name="module.jdk.classpath.user_query" value="${project.jdk.classpath}"/>
+  
+  <property name="compiler.args.user_query" value="-encoding UTF-8 -source 8 -target 8 ${compiler.args}"/>
+  
+  <property name="user_query.output.dir" value="${module.user_query.basedir}/out/production/User_Query"/>
+  <property name="user_query.testoutput.dir" value="${module.user_query.basedir}/out/test/User_Query"/>
+  
+  <path id="user_query.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="user_query.module.production.classpath">
+    <path refid="${module.jdk.classpath.user_query}"/>
+  </path>
+  
+  <path id="user_query.runtime.production.module.classpath">
+    <pathelement location="${user_query.output.dir}"/>
+  </path>
+  
+  <path id="user_query.module.classpath">
+    <path refid="${module.jdk.classpath.user_query}"/>
+    <pathelement location="${user_query.output.dir}"/>
+  </path>
+  
+  <path id="user_query.runtime.module.classpath">
+    <pathelement location="${user_query.testoutput.dir}"/>
+    <pathelement location="${user_query.output.dir}"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.user_query">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.user_query">
+    <patternset refid="excluded.from.module.user_query"/>
+  </patternset>
+  
+  <path id="user_query.module.sourcepath">
+    <dirset dir="${module.user_query.basedir}">
+      <include name="UserQuery"/>
+    </dirset>
+  </path>
+  
+  
+  <target name="compile.module.user_query" depends="compile.module.user_query.production,compile.module.user_query.tests" description="Compile module User_Query"/>
+  
+  <target name="compile.module.user_query.production" depends="register.custom.compilers" description="Compile module User_Query; production classes">
+    <mkdir dir="${user_query.output.dir}"/>
+    <javac2 destdir="${user_query.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.user_query}/javac">
+      <compilerarg line="${compiler.args.user_query}"/>
+      <bootclasspath refid="user_query.module.bootclasspath"/>
+      <classpath refid="user_query.module.production.classpath"/>
+      <src refid="user_query.module.sourcepath"/>
+      <patternset refid="excluded.from.compilation.user_query"/>
+    </javac2>
+    
+    <copy todir="${user_query.output.dir}">
+      <fileset dir="${module.user_query.basedir}/UserQuery">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="compile.module.user_query.tests" depends="register.custom.compilers,compile.module.user_query.production" description="compile module User_Query; test classes" unless="skip.tests"/>
+  
+  <target name="clean.module.user_query" description="cleanup module">
+    <delete dir="${user_query.output.dir}"/>
+    <delete dir="${user_query.testoutput.dir}"/>
+  </target>
+</project>
