@@ -1,0 +1,2 @@
+# movie-review-analyzer
+This is an implementation of basic Elasticsearch/Lucene engine using Java and Oracle11g for searching required movie review, It also generate movie rating by analyzing review text. This project is divided in two parts, first reads and analyze input files and create back-end structure indexing dictionary, posting list and directory list. Second part processes user query and returns result by using that back-end structure.
